@@ -16,10 +16,19 @@ class Animal:
         if cor_pelo == None:
             self.cor_pelo = "Ausente"
 
+    @property
+    def comer(self):
+        if self.tipo_alimentação == "onívoro":
+            return "Come de tudo"
+        elif self.tipo_alimentação == "herbívoro":
+            return "Come vegetais"
+        elif self.tipo_alimentação == "carnívoro":
+            return "Come carne"
+        else:
+            return "Come de tudo"
+
     def __str__(self):
         return f"{self.__class__.__name__}: {', '.join([f'{chave}= {valor}' for chave, valor in self.__dict__.items()])}"
-
-
 
 class Mamifero(Animal):
     def __init__(self, **kw):
@@ -27,14 +36,26 @@ class Mamifero(Animal):
 
 
 class Ave(Animal):
-    def __init__(self, cor_bico, **kw):
+    def __init__(self, cor_bico,voar=False, **kw):
         self.cor_bico = cor_bico
+        self.voar = voar
         super().__init__(**kw)
+
+    def voar(self):
+        self.voar = True or False
+
+        
+def pode_voar(self):
+    if self.voar == True:
+        return "pode voar"  
+    else:
+        return "Nao voa"
 
 
 class Terrestres(Animal):
     def __init__(self, **kw):
         super().__init__(**kw)
+    
 
 
 class Aquaticos(Animal):
@@ -69,6 +90,8 @@ class mamifero_voador_aquatico(Mamifero,Ave,Aquaticos):
         super().__init__(cor_bico=cor_bico,tipo_respiracao=tipo_respiracao, **kw)
 
 
+
+
 ###  
 class tentaculos(Animal):
     def __init__(self,tentaculos, **kw):
@@ -89,10 +112,12 @@ class abelha(insetos):
 
 gato = mamifero_terrestre(nome="gato",nro_patas=4, cor_pelo="Preto",ambiente="doméstico",tipo_alimentação="onívoro")
 print(gato,"\n")
+print(gato.comer,"\n")
 
 abelha = insetos(nome="abelha",nro_patas=6,ambiente="doméstico",tipo_alimentação="onívoro")
 print(abelha,"\n")
 
 
-morcego = mamifero_voador(nome="morcego",nro_patas=2, cor_pelo="marrom",cor_bico="vermelho",ambiente="aéreo",tipo_alimentação="onívoro")
+morcego = mamifero_voador(nome="morcego",nro_patas=2, cor_pelo="marrom",cor_bico="vermelho",ambiente="aéreo",tipo_alimentação="onívoro",voar=False)
 print(morcego,"\n")
+print(pode_voar(morcego))
